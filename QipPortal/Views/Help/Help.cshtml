@@ -1,0 +1,355 @@
+﻿<!-- ------------------------------------------------------------------------------
+       This file is copyright Expleo 2021.
+     ------------------------------------------------------------------------------ -->
+@model QipPortal.Models.Account.LoginViewModel
+@section NavSidebar{
+    <partial name="_Sidebar" model="@ViewBag.menuItem" />
+}
+
+@section UserOptions{
+    <partial name="_UserOptions" model="@ViewBag.ProjectCount" />
+}
+
+@*Script to hide the report menu from XDK Powerapp page*@
+@section Scripts {
+    <script type="text/javascript">
+        $(function () {
+            $("#PowerReport").hide();
+        });
+
+        function Versionclick(arrowImage, showcontent, versiontitle, versiondate) {
+            var imagelink = document.getElementById(arrowImage);
+            var Versiondetalis = document.getElementById(showcontent);
+            var highlight = document.getElementById(versiontitle);
+            var versionDate = document.getElementById(versiondate);
+            if (imagelink.src.includes("UpArrow.svg")) {
+                imagelink.src = '../../img/icons/DownArrow.svg';
+                Versiondetalis.style.display = "none";
+                highlight.classList.add("version-subtitle");
+                highlight.classList.remove("version-maintitle");
+                versionDate.classList.add("v2-date");
+                versionDate.classList.remove("v3-date");
+            }
+            else {
+                imagelink.src = '../../img/icons/UpArrow.svg';
+                Versiondetalis.style.display = "block";
+                highlight.classList.add("version-maintitle");
+                highlight.classList.remove("version-subtitle");
+                versionDate.classList.add("v3-date");
+                versionDate.classList.remove("v2-date");
+            }
+        }
+
+        var image = document.getElementById('arrowImage');
+        var show = document.getElementById('showcontent');
+        image.addEventListener('click', function () {
+            changeImage();
+        });
+
+        function changeImage() {
+            if (image.src.match("img/icons/UpArrow.svg")) {
+                image.src = '../../img/icons/DownArrow.svg';
+                show.style.display = "none";
+            }
+            else {
+                image.src = '../../img/icons/UpArrow.svg';
+                show.style.display = "block";
+            }
+        }
+
+        //===================================================
+
+        function SwitchViews(newViewId, RID, FavouriteID, PojectID) {
+            window.location = window.location.origin + "?action=" + newViewId + "&RID=" + RID + "&PjID=" + PojectID + "&FevID=" + FavouriteID + "&";
+        }
+    </script>
+}
+<div class="help-header">
+    <p class="version-history">Version History</p>
+</div>
+<div class="help-outline">
+    <div class="content-menu">@ViewBag.VersionDateDDMMMYYYY</div>
+    <div class="step completed">
+        <div class="v-stepper">
+            <div class="circle"></div>
+            <div class="line"></div>
+        </div>
+        <div class="content">
+            <a href="#">
+                <span class="version-maintitle">Version @ViewBag.VersionNo<img alt="expansion" src="../../img/icons/UpArrow.svg" id="arrowImage"></span>
+            </a>
+            <p class="current-version">Current Version</p>
+            <div class="version-grid-container">
+                <div id="showcontent" class="contentVersion">
+                    <span class="release-title"><img alt="version" src="../../img/icons/Version-Add.svg">What we Added</span>
+                    <ul class="version-addlist">
+                        <li>Added new app landing pages such as ScriptGenie, AutoQ-Portable and FaXimme</li>
+                        <li>Manage favorite apps and reports. </li>
+                    </ul>
+                    <span class="release-title"><img alt="version" src="../../img/icons/BugFix.svg">Bugs we fixed</span>
+                    <ul class="version-addlist">
+                        <li>Minor UI issues and bugs.</li>
+                        <li>X-dk app loading issues.</li>
+                    </ul>
+                    <span class="release-title"><img alt="version" src="../../img/icons/SystemSettings.svg">We're working on</span>
+                    <ul class="version-addlist">
+                        <li>Alpha version of DataGuru app</li>
+                    </ul>
+                </div>
+                <div class="version-box">
+                    <p class="box-version">Current Version</p>
+                    <p class="box-version-number">@ViewBag.VersionNo</p>
+                    <p class="box-version-1">Released on</p>
+                    <p class="box-version-number">@ViewBag.VersionDateDDMMMYYYY</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="step">
+        <div class="v-stepper">
+            <div class="circle"></div>
+            <div class="line"></div>
+        </div>
+        <div class="content">
+            <p class="v2-date" id="version9date">23 July 2021</p>
+            <a href="#">
+                <span class="version-subtitle" id="version9title" onclick="Versionclick('two9arrow','two9details','version9title','version9date');">Version 2.0.9<img alt="oldexpansion" src="../../img/icons/DownArrow.svg" id="two9arrow"></span>
+            </a>
+            <div id="two9details" style="display:none;" class="contentVersion">
+                <span class="release-title"><img alt="version" src="../../img/icons/Version-Add.svg">What we Added</span>
+                <ul class="version-addlist">
+                    <li>Fixed the minor bugs. </li>
+                    <li>Added Version Release notes for all Versions.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="step">
+        <div class="v-stepper">
+            <div class="circle"></div>
+            <div class="line"></div>
+        </div>
+        <div class="content">
+            <p class="v2-date" id="version8date">13 July 2021</p>
+            <a href="#">
+                <span class="version-subtitle" id="version8title" onclick="Versionclick('two8arrow','two8details','version8title','version8date');">Version 2.0.8<img alt="oldexpansion" src="../../img/icons/DownArrow.svg" id="two8arrow"></span>
+            </a>
+            <div id="two8details" style="display:none;" class="contentVersion">
+                <span class="release-title"><img alt="version" src="../../img/icons/Version-Add.svg">What we Added</span>
+                <ul class="version-addlist">
+                    <li>Fixed the minor bugs. </li>
+                    <li>Added Version Release notes for all Versions.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="step">
+        <div class="v-stepper">
+            <div class="circle"></div>
+            <div class="line"></div>
+        </div>
+        <div class="content">
+            <p class="v2-date" id="version7date">2 July 2021</p>
+            <a href="#">
+                <span class="version-subtitle" id="version7title" onclick="Versionclick('two7arrow','two7details','version7title','version7date');">Version 2.0.7<img alt="oldexpansion" src="../../img/icons/DownArrow.svg" id="two7arrow" /></span>
+            </a>
+            <div id="two7details" style="display:none;" class="contentVersion">
+                <span class="release-title"><img alt="version" src="../../img/icons/Version-Add.svg">What we Added</span>
+                <ul class="version-addlist">
+                    <li>Fixed the minor bugs. </li>
+                    <li>Added Version Release notes for all Versions.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="step">
+        <div class="v-stepper">
+            <div class="circle"></div>
+            <div class="line"></div>
+        </div>
+        <div class="content">
+            <p class="v2-date" id="version6date">1 July 2021</p>
+            <a href="#">
+                <span class="version-subtitle" id="version6title" onclick="Versionclick('two6arrow','two6details','version6title','version6date');">Version 2.0.6<img alt="oldexpansion" src="../../img/icons/DownArrow.svg" id="two6arrow"></span>
+            </a>
+            <div id="two6details" style="display:none;" class="contentVersion">
+                <span class="release-title"><img alt="version" src="../../img/icons/Version-Add.svg">What we Added</span>
+                <ul class="version-addlist">
+                    <li>Fixed the minor bugs. </li>
+                    <li>Updated the Version release notes.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="step">
+        <div class="v-stepper">
+            <div class="circle"></div>
+            <div class="line"></div>
+        </div>
+        <div class="content">
+            <p class="v2-date" id="version5date">30 Jun 2021</p>
+            <a href="#">
+                <span class="version-subtitle" id="version5title" onclick="Versionclick('two5arrow','two5details','version5title','version5date');">Version 2.0.5<img alt="oldexpansion" src="../../img/icons/DownArrow.svg" id="two5arrow"></span>
+            </a>
+            <div id="two5details" style="display:none;" class="contentVersion">
+                <span class="release-title"><img alt="version" src="../../img/icons/Version-Add.svg">What we Added</span>
+                <ul class="version-addlist">
+                    <li>Fixed the minor bugs </li>
+                    <li>Added Logout Modal Feature</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="step">
+        <div class="v-stepper">
+            <div class="circle"></div>
+            <div class="line"></div>
+        </div>
+        <div class="content">
+            <p class="v2-date" id="version4date">29 Jun 2021</p>
+            <a href="#">
+                <span class="version-subtitle" id="version4title" onclick="Versionclick('two4arrow','two4details','version4title','version4date');">Version 2.0.4<img alt="oldexpansion" src="../../img/icons/DownArrow.svg" id="two4arrow"></span>
+            </a>
+            <div id="two4details" style="display:none;" class="contentVersion">
+                <span class="release-title"><img alt="version" src="../../img/icons/Version-Add.svg">What we Added</span>
+                <ul class="version-addlist">
+                    <li>Fixed the minor bugs </li>
+                    <li>Added Styles for Mouse and Keyboard Focus</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="step">
+        <div class="v-stepper">
+            <div class="circle"></div>
+            <div class="line"></div>
+        </div>
+        <div class="content">
+            <p class="v2-date" id="version3date">28 Jun 2021</p>
+            <a href="#">
+                <span class="version-subtitle" id="version3title" onclick="Versionclick('two3arrow','two3details','version3title','version3date');">Version 2.0.3<img alt="oldexpansion" src="../../img/icons/DownArrow.svg" id="two3arrow"></span>
+            </a>
+            <div id="two3details" style="display:none;" class="contentVersion">
+                <span class="release-title"><img alt="version" src="../../img/icons/Version-Add.svg">What we Added</span>
+                <ul class="version-addlist">
+                    <li>Fixed the Styling issues </li>
+                    <li>Fixed Report and app tab rendering issues</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="step">
+        <div class="v-stepper">
+            <div class="circle"></div>
+            <div class="line"></div>
+        </div>
+        <div class="content">
+            <p class="v2-date" id="version2date">25 Jun 2021</p>
+            <a href="#">
+                <span class="version-subtitle" id="version2title" onclick="Versionclick('two2arrow','two2details','version2title','version2date');">Version 2.0.2<img alt="oldexpansion" src="../../img/icons/DownArrow.svg" id="two2arrow"></span>
+            </a>
+            <div id="two2details" style="display:none;" class="contentVersion">
+                <span class="release-title"><img alt="version" src="../../img/icons/Version-Add.svg">What we Added</span>
+                <ul class="version-addlist">
+                    <li>Added feature of add and remove favorite. </li>
+                    <li>Removed unwanted functionality</li>
+                    <li>Added view of userguide documentation under help tab</li>
+                    <li>Rendering sidebar menus dynamically</li>
+                    <li>Fixed minor bugs</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="step">
+        <div class="v-stepper">
+            <div class="circle"></div>
+            <div class="line"></div>
+        </div>
+        <div class="content">
+            <p class="v2-date" id="version1date">21 Jun 2021</p>
+            <a href="#">
+                <span class="version-subtitle" id="version1title" onclick="Versionclick('two1arrow','two1details','version1title','version1date');">Version 2.0.1<img alt="oldexpansion" src="../../img/icons/DownArrow.svg" id="two1arrow"></span>
+            </a>
+            <div id="two1details" style="display:none;" class="contentVersion">
+                <span class="release-title"><img alt="version" src="../../img/icons/Version-Add.svg">What we Added</span>
+                <ul class="version-addlist">
+                    <li>Major Bug fixes. </li>
+                    <li>Added stylings for Keyboard tab and highlighting buttons.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="step">
+        <div class="v-stepper">
+            <div class="circle"></div>
+            <div class="line"></div>
+        </div>
+        <div class="content">
+            <p class="v2-date" id="version0date">8 Jun 2021</p>
+            <a href="#">
+                <span class="version-subtitle" id="version0title" onclick="Versionclick('two0arrow','two0details','version0title','version0date');">Version 2.0.0<img alt="oldexpansion" src="../../img/icons/DownArrow.svg" id="two0arrow"></span>
+            </a>
+            <div id="two0details" style="display:none;" class="contentVersion">
+                <span class="release-title"><img alt="version" src="../../img/icons/Version-Add.svg">What we Added</span>
+                <ul class="version-addlist">
+                    <li>New Icons added in Side bar and Header menu of landing page. </li>
+                    <li>Version number displayed on login and landing page.</li>
+                    <li>Displayed Version details on hover.</li>
+                    <li>New help menu in the side bar with release notes.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="step">
+        <div class="v-stepper">
+            <div class="circle"></div>
+            <div class="line"></div>
+        </div>
+        <div class="content">
+            <p class="v2-date" id="version02date">28 May 2021</p>
+            <a href="#"> <span class="version-subtitle" id="version02title" onclick="Versionclick('one02arrow','one02details','version02title','version02date');">Version 1.0.2<img alt="oldexpansion" src="../../img/icons/DownArrow.svg" id="one02arrow"></span></a>
+            <div id="one02details" style="display:none;" class="contentVersion">
+                <span class="release-title"><img alt="version" src="../../img/icons/Version-Add.svg">What we Added</span>
+                <ul class="version-addlist">
+                    <li>Current Version number displayed on login and landing page.</li>
+                    <li>Displayed Current Version details on hover.</li>
+                    <li>Displayed new pop up of help with release notes after logged in.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="step">
+        <div class="v-stepper">
+            <div class="circle"></div>
+            <div class="line"></div>
+        </div>
+
+        <div class="content">
+            <p class="v2-date" id="version01date">25 May 2021</p>
+            <a href="#"><span class="version-subtitle" id="version01title" onclick="Versionclick('one01arrow','one01details','version01title','version01date');">Version 1.0.1<img alt="oldexpansion" src="../../img/icons/DownArrow.svg" id="one01arrow"></span></a>
+            <div id="one01details" style="display:none;" class="contentVersion">
+                <span class="release-title"><img alt="version" src="../../img/icons/Version-Add.svg">What we Added</span>
+                <ul class="version-addlist">
+                    <li>New Icons added in Side bar and Header menu of landing page. </li>
+                    <li>Version number displayed on login and landing page.</li>
+                    <li>Displayed Version details on hover.</li>
+                    <li>New help menu in the side bar with release notes.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

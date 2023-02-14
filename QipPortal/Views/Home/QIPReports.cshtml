@@ -1,0 +1,19 @@
+﻿@section NavSidebar{
+    <partial name="_Sidebar" model="@ViewBag.menuItem" />
+}
+
+@section UserOptions{
+    <partial name="_UserOptions" model="@ViewBag.ProjectCount" />
+}
+
+
+<div class="landing">
+    @section Scripts {
+        <script type="text/javascript">
+            $(function () {
+                $("#PowerReport").show();
+            });
+        </script>
+    }
+</div>
+

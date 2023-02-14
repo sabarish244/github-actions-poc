@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="35px" height="35px" viewBox="0 0 35 35" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49 (51002) - http://www.bohemiancoding.com/sketch -->
+    <title>Fail</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="100%" y1="100%" x2="0%" y2="0%" id="linearGradient-1">
+            <stop stop-color="#EC4A5C" offset="0%"></stop>
+            <stop stop-color="#FF2525" offset="100%"></stop>
+        </linearGradient>
+        <polygon id="path-2" points="0 0 13 0 13 13 0 13"></polygon>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Scanned-Apps---Hover" transform="translate(-114.000000, -393.000000)">
+            <g id="App-Bar" transform="translate(50.000000, 257.000000)">
+                <g id="Fail" transform="translate(64.000000, 136.000000)">
+                    <g id="Group-5">
+                        <g id="Group-4" fill="url(#linearGradient-1)">
+                            <rect id="Rectangle-13-Copy-5" x="0" y="0" width="35" height="35" rx="10"></rect>
+                        </g>
+                        <g id="Page-1" transform="translate(11.000000, 11.000000)">
+                            <mask id="mask-3" fill="white">
+                                <use xlink:href="#path-2"></use>
+                            </mask>
+                            <g id="Clip-2"></g>
+                            <path d="M12.5045118,10.1195829 C13.1651627,10.7803845 13.1651627,11.8478332 12.5045118,12.5086347 C12.1657165,12.8475073 11.7252826,13 11.3017884,13 C10.8613545,13 10.4378604,12.8475073 10.0990651,12.5086347 L6.49089488,8.89964158 L2.8827247,12.5086347 C2.56086914,12.8475073 2.12043522,13 1.69694107,13 C1.25650715,13 0.833012998,12.8475073 0.494217676,12.5086347 C-0.164739225,11.8478332 -0.164739225,10.7803845 0.494217676,10.1195829 L4.10238786,6.51058977 L0.494217676,2.90159661 C-0.164739225,2.24079505 -0.164739225,1.17334637 0.494217676,0.495601173 C1.15486855,-0.165200391 2.22207382,-0.165200391 2.8827247,0.495601173 L6.49089488,4.10459433 L10.0990651,0.495601173 C10.7597159,-0.165200391 11.843861,-0.165200391 12.5045118,0.495601173 C13.1651627,1.17334637 13.1651627,2.24079505 12.5045118,2.90159661 L8.89634166,6.51058977 L12.5045118,10.1195829 Z" id="Fill-1" fill="#FEFEFE" mask="url(#mask-3)"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

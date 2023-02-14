@@ -1,0 +1,372 @@
+/* .first-container {
+  position: absolute;
+  width: 1920px;
+  height: 953px;
+  left: 0px;
+  top: -16px;
+  background: linear-gradient(90.5deg, #0e0d1b 12.92%, #1f1f30 95.65%);
+} */
+
+.first-container {
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: linear-gradient(90.5deg, #0e0d1b 12.92%, #1f1f30 95.65%);
+
+}
+
+.welcome {
+  position: absolute;
+  width: 150px;
+  height: 29px;
+  left: 200px;
+  top: 164px;
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 29px;
+  color: #ffffff;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.x {
+  position: absolute;
+  width: 228px;
+  height: 41px;
+  left: 198px;
+  top: 214px;
+  color: #ffffff;
+  font-size: 35px;
+}
+
+.second-container {
+  position: absolute;
+  width: 571px;
+  height: 72px;
+  left: 198px;
+  top: 263px;
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 24px;
+  color: #ffffff;
+}
+
+.expleo-image {
+  position: absolute;
+  width: 1101px;
+  height: 636px;
+  left: 74px;
+  top: 314px;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto;
+}
+
+.grid-login {
+  position: absolute;
+  width: 549px;
+  height: 471px;
+  left: 1262px;
+  top: 176px;
+  background: rgba(255, 255, 255, 0.98);
+  border-radius: 24px;
+}
+
+.username-text {
+  position: absolute;
+  color: #6946c6;
+  top: 88px;
+  left: 67px;
+  font-weight: 500;
+  font-size: 19px;
+  font-family: Montserrat;
+  font-style: normal;
+  line-height: 26px;
+}
+
+.input-type {
+  padding: 7px;
+  display: block;
+  border: none;
+  border-bottom: 2px solid #6946c6;
+  width: 371px;
+  position: absolute;
+  top: 117px;
+  left: 69px;
+  font-size: 20px;
+}
+
+.password-text {
+  position: absolute;
+  color: #6946c6;
+  top: 174px;
+  left: 67px;
+  font-weight: 500;
+  font-size: 19px;
+  font-family: Montserrat;
+  font-style: normal;
+  line-height: 26px;
+}
+
+.input-pass {
+  padding: 7px;
+  display: block;
+  border: none;
+  border-bottom: 2px solid rgba(78, 78, 78, 0.71);
+  width: 371px;
+  position: absolute;
+  top: 202px;
+  left: 69px;
+  font-size: 20px;
+}
+
+.forgotpassword-text {
+  width: 371px;
+  position: absolute;
+  top: 259px;
+  left: 67px;
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 22px;
+  text-decoration-line: underline;
+  color: #6946c6;
+}
+
+.submit-form {
+  width: 117px;
+  position: absolute;
+  top: 319px;
+  left: 337px;
+  height: 49px;
+  color: #ffffff;
+  background-color: #6946c6;
+  border-radius: 6px;
+  font-size: 21px;
+}
+
+.topnav{
+  position: absolute;
+  width: 1920px;
+  height: 106px;
+  left: 0px;
+  top: 0px;
+  background: #000000;
+  box-shadow: 0px 7px 13px rgba(0, 0, 0, 0.25);
+}
+
+.logo-nav{
+  position: absolute;
+  width: 291px;
+  height: 46px;
+  left: 33px;
+  top: 29px;
+}
+
+.vector-nav{
+  position: absolute;
+  width: 885px;
+  height: 19px;
+  left: 1186px;
+  top: 41px;
+}
+
+.logout-nav{
+  position: absolute;
+  width: 990px;
+  height: 23px;
+  left: 1360px;
+  top: 40px;
+}
+
+.section-nav{
+  position: absolute;
+  width: 1921px;
+  height: 352px;
+  left: -3px;
+  top: -2px;
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.sidebar{
+  position: absolute;
+  width: 107px;
+  height: 804px;
+  left: 0px;
+  top: 105px;
+  background-color: #ffffff;
+}
+
+.gridcontainer-nav{
+  display: grid;
+  grid-template-columns: auto auto ;
+}
+
+.home-nav{
+  position: absolute;
+  width: 31px;
+  height: 31px;
+  left: 33px;
+  top: 17px;
+}
+
+.home-text{
+  position: absolute;
+  width: 38px;
+  height: 15px;
+  left: 30px;
+  top: 60px;
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 15px;
+  text-align: center;
+  color: #000000;
+  text-decoration: none;
+}
+
+.report-nav{
+  position: absolute;
+  left: 30.15%;
+  right: 95.36%;
+  top: 14.31%;
+  bottom: 64.72%;
+  transform: matrix(1, 0, 0, -1, 0, 0);
+}
+
+.rep-text{
+  position: absolute;
+  width: 48px;
+  height: 15px;
+  left: 25px;
+  top: 157px;
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 15px;
+  text-align: center;
+  color: #000000;
+  text-decoration: none;
+}
+
+.fav-nav{
+  position: absolute;
+  width: 49px;
+  height: 57px;
+  left: 25px;
+  top: 211px;
+}
+
+.banner-nav{
+  position: absolute;
+  width: 1817px;
+  height: 354px;
+  left: 0px;
+  top: -1px;
+  background: url(image.png);
+}
+
+.banner-section{
+  position: absolute;
+  width: 1803px;
+  height: 804px;
+  left: 115px;
+  top: 107px;
+  background-color: #ffffff;
+}
+
+.grid-section{
+  display: grid;
+  grid-template-columns: auto auto auto auto auto auto;
+}
+
+.grid-sectionone{
+  position: absolute;
+  width: 114px;
+  height: 176px;
+  left: 67px;
+  top: 369px;
+  background: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  box-shadow: 4px 4px 13px 3px rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+}
+
+.grid-sectiontwo{
+  position: absolute;
+  width: 331px;
+  height: 176px;
+  left: 180px;
+  top: 369px;
+  background: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  box-shadow: 4px 4px 13px 3px rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+}
+
+.grid-sectionthree{
+  position: absolute;
+  width: 114px;
+  height: 176px;
+  left: 661px;
+  top: 369px;
+  background: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  box-shadow: 4px 4px 13px 3px rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+}
+
+.grid-sectionfour{
+  position: absolute;
+  width: 331px;
+  height: 176px;
+  left: 774px;
+  top: 369px;
+  background: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  box-shadow: 4px 4px 13px 3px rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+}
+
+.grid-sectionfive{
+  position: absolute;
+  width: 114px;
+  height: 176px;
+  left: 1263px;
+  top: 369px;
+  background: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  box-shadow: 4px 4px 13px 3px rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+}
+
+.grid-sectionsix{
+  position: absolute;
+  width: 331px;
+  height: 176px;
+  left: 1376px;
+  top: 369px;
+  background: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  box-shadow: 4px 4px 13px 3px rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+}

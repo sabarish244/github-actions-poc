@@ -1,0 +1,43 @@
+﻿@model ErrorViewModel
+@{
+    Layout = "~/Views/Shared/_LayoutError.cshtml";
+    ViewData["Title"] = "Error";
+}
+
+<div class="fixed-background"></div>
+<main>
+    <div class="container">
+        <div class="row h-100">
+            <div class="col-12 col-md-10 mx-auto my-auto">
+                <div class="card auth-card">
+                    <div class="position-relative image-side ">
+
+                        <p class=" text-white h2">Error encountered</p>
+
+                        <p class="white mb-0">
+                            <a asp-action="Index" asp-controller="Home" class="white">Return to QIP Portal homepage</a>
+                        </p>
+                    </div>
+                    <div class="form-side">
+                        <a href="~/" class="h2">QIP Portal</a>
+                        <h2 class="text-danger">An error occurred while processing your request.</h2>
+
+                        @if (Model.ShowRequestId)
+                        {
+                            <p>
+                                <strong>Request ID:</strong> @Model.RequestId
+                            </p>
+                        }
+                        @if (!string.IsNullOrWhiteSpace(Model.UserDescription))
+                        {
+                            <p>
+                                <strong>Error message:</strong> @Model.UserDescription
+                            </p>
+                        }                        
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
