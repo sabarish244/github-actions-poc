@@ -1,0 +1,11 @@
+# Compiled C#
+*/bin
+*/obj
+
+# Compiled Specflow
+*.feature.cs
+
+# Visual Studio User Settings
+*/.vs
+/.vs
+*/TestResults

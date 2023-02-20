@@ -1,0 +1,23 @@
+name: .NET 6.0 No Artifacts
+on:
+  push:
+
+jobs:
+  build:
+    name: Build & Test
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.0.x
+    - uses:  ./
+      with:
+        test-assembly-path: RunSpecflowTests/bin/Release/net6.0
+        test-assembly-dll: RunSpecflowTests.dll
+        output-html: CalculatorResults.html
+        framework: net6.0
+        upload-artifact: false
