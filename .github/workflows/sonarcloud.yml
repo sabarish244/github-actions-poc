@@ -45,3 +45,21 @@ jobs:
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"sabarish244_github-actions-poc" /o:"sabarishr" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
           dotnet build
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
+      - name: Send mail
+        if: failure()
+        uses: dawidd6/action-send-mail@v2
+        with:
+        # mail server settings
+          server_address: smtp.gmail.com
+          server_port: 465
+        # user credentials
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+    # email subject
+          subject: ${{ github.job }} job of ${{ github.repository }} has ${{ job.status }}
+    # email body as text
+          body: ${{ github.job }} job in worflow ${{ github.workflow }} of ${{ github.repository }} has ${{ job.status }}
+    # comma-separated string, send email to
+          to: sabarish.ramasubramanian@expleogroup.com,ragavendira.rajathirumalai@expleogroup.com
+    # from email name
+          from: Github-Actions
