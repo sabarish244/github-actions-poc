@@ -46,7 +46,7 @@ jobs:
           dotnet build
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
       - name: Send mail
-        if: failure()
+        if: always()
         uses: dawidd6/action-send-mail@v2
         with:
         # mail server settings
