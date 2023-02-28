@@ -1,0 +1,29 @@
+﻿iframe {
+    border: 0 !important;
+}
+
+@media (min-width: 1199px) {
+    #reportContainer {
+        height: 100%;
+       
+    }
+}
+
+ 
+
+#infoCardRow {
+    padding-top: 30px;
+}
+
+#reportContainerRow {
+    height: 650px !important;
+    width:100%;
+}
+
+.btn span.name {
+    color: #FFFFFF;
+}
+
+.btn span.name:hover {
+    color: #6846c7;
+}

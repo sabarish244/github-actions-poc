@@ -1,0 +1,305 @@
+﻿@model QipPortal.Models.MenuItemList
+@using Microsoft.AspNetCore.Identity
+@using QipPortal.Models.DB
+@using System.Text
+
+@*@inject SignInManager<Users> SignInManager
+
+
+    @if (!SignInManager.IsSignedIn(User)) *@
+@if (User == null)
+{
+    <div class="main-menu">
+        <div class="scroll">
+            <ul class="list-unstyled">
+                <li class="@(ViewContext.RouteData.Values["Controller"].ToString().ToLower() == "home" ? "active" : "")">
+                    <a href="#">
+                        <img alt="home" src="../../img/icons/Home.svg">
+                        <span>Home</span>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+    </div> }
+else
+{
+
+
+    <div class="main-menu @(ViewContext.RouteData.Values["Controller"].ToString().ToLower() == "home" ? "active" : "")">
+
+        @functions { // The end of the branch string.
+            const string branchEnd = "</ul></li>";
+            int ProjectID = 0;
+
+            /// <summary>
+            /// This function writes a leaf node which will be either an app or a report.
+            /// </summary>
+            /// <param name="builder">
+            /// All the HTML will go into the string builder.
+            /// </param>
+            /// <param name="menuItem">
+            /// <param name="Fevid">
+            /// <param name="labelStack">
+            /// All the data for the leaf menu item.
+            /// </param>
+            void WriteLeafNode(StringBuilder builder, ClientMenuItem menuItem, int Fevid, Stack<string> labelStack = null)
+            {
+                var stackLabelsInOrder = labelStack.ToArray().Reverse().ToArray();
+                var fullText = string.Join(" / ", stackLabelsInOrder);
+                var topCategory = stackLabelsInOrder[0];
+
+                string resourceType = menuItem.IsReport ? "REPORT" : "APP";
+                string appSpanExtra = menuItem.IsReport ? "" : "class=\"app\" id=\"subm\"";
+                if (Fevid != 3)
+                {
+                    builder.AppendFormat("<li class='subcategory-dropdown'><button type=\"button\" onclick=\"ShowResourceLoads('{0}', '{1}', '{2}', '{3}', '{4}')\" data-title=\"\" data-menu-path=\"{5}\" id=\"mnu-{0}\">", menuItem.ResourceId, menuItem.Name, menuItem.IsFavourite, menuItem.ProjectId, resourceType,fullText);
+                    builder.AppendLine();
+                    builder.AppendFormat("<span data-searchable=\"true\"  {1} ><img alt = '{0} Icon' src=\"../../img/icons/CollapseArrow.svg\">{0}<span class=\"menucat\">{2}</span></span>", menuItem.Name, appSpanExtra, topCategory);
+                    builder.AppendLine("</button></li>");
+                }
+                else
+                {
+                    builder.AppendFormat("<li class= 'subcategory-dropdown favItems' id=\"{0}\"><button title=\"{5}\" onclick=\"ShowResourceLoads('{0}', '{1}', '{2}', '{3}', '{4}')\">", menuItem.ResourceId, menuItem.Name, menuItem.IsFavourite, menuItem.ProjectId, resourceType, fullText);
+                    builder.AppendLine();
+                    builder.AppendFormat("<span><img alt = '{0}' src=\"../../img/icons/CollapseArrow.svg\">{0}<span class=\"favcat\">{1}</span></span>", menuItem.Name, topCategory);
+                    builder.AppendLine();
+                    builder.AppendFormat("<button type=\"button\" class=\"dropbtn\" style=\"float: right;\" onclick=\"myFunction('{0}', '{1}')\"><img alt = \"Menudots\" src=\"../../img/icons/Threedots.svg\"></button>", menuItem.ResourceId, menuItem.Name);
+                    builder.AppendLine();
+                    builder.AppendFormat("<button type=\"button\" onclick = \"faveBarAddAndRemove('{0}', '{1}', '{2}', '{3}', '{4}')\" class=\"dropdown li-sub-menu-dropdown\">", menuItem.ResourceId, menuItem.Name, menuItem.IsFavourite, menuItem.ProjectId, resourceType);
+                    builder.AppendLine();
+                    builder.AppendFormat("<ul id =\"favrm{0}\" class=\"dropdown-content\"><li>Remove from Favorite</li> </ul></button></button></li>", menuItem.ResourceId);
+                    builder.AppendLine();
+                }
+            }
+
+            /// <summary>
+            /// This function writes the start of a branch node which will just be category.
+            /// </summary>
+            /// <param name="builder">
+            /// All the HTML will go into the string builder.
+            /// </param>
+            /// <param name="menuItem">
+            /// All the data for the leaf menu item.
+            /// </param>
+            ///
+
+
+            void WriteBranchStart(StringBuilder builder, ClientMenuItem menuItem, bool isTopLevel)
+            {
+                string topLevelClass = isTopLevel ? "top" : string.Empty;
+                // Write the LI for the branch
+                builder.AppendLine($"<li class='list-dropdown { topLevelClass }'  id='list-dropdown'>");
+
+                // A span contains the text
+                builder.AppendFormat("<button class='test menu-button {2}' tabindex='0'><img alt =\"sidebar arrow icon {0}\" src='../../img/icons/Process.svg'>{1}</button>", menuItem.ProjectId, menuItem.Name, topLevelClass);
+                builder.AppendLine();
+
+                // The opening UL statement to contain all of the children
+                builder.AppendLine("<ul class='abc sub-menu-item' id='submenu-list'>");
+            }
+
+            /// <summary>
+            /// This function will write the html for a category.
+            /// </summary>
+            /// <param name="builder">
+            /// All the HTML will go into the string builder.
+            /// </param>
+            /// <param name="menuItem">
+            /// This is the root menu item.
+            /// </param>
+            void WriteCategory(StringBuilder builder, ClientMenuItem menuItem, int fevid, int depth = 0, Stack<string> labelStack = null)
+            {
+                bool isTopLevel = depth == 0;
+                
+                if(labelStack == null) {
+                    labelStack = new Stack<string>();
+                }
+
+                labelStack.Push(menuItem.Name);
+
+                depth++;
+
+                if (fevid != 3)
+                {
+                    // If this is a branch node write the category name
+                    if (menuItem.ResourceId == 0)
+                    {
+                        // Write the markup for the name
+                        WriteBranchStart(builder, menuItem, isTopLevel);
+
+                        // Call this function recursively to write the children
+                        foreach (ClientMenuItem childItem in menuItem.Children)
+                        {
+                            WriteCategory(builder, childItem, fevid, depth, labelStack);
+                        }
+
+                        // Add the end of the branch
+                        builder.AppendLine(branchEnd);
+                    }
+                    // Otherwise this is a leaf node
+                    else
+                    {
+
+                        // Write the markup for the name
+                        WriteLeafNode(builder, menuItem, fevid, labelStack);
+                    }
+                }
+                else
+                {
+                    if (menuItem.ResourceId == 0)
+                    {
+                        // Call this function recursively to write the children
+                        foreach (ClientMenuItem childItem in menuItem.Children)
+                        {
+                            WriteCategory(builder, childItem, fevid, depth, labelStack);
+                        }
+                    }
+                    else
+                    {
+                        // Write the markup for the name
+                        WriteLeafNode(builder, menuItem, fevid, labelStack);
+                    }
+
+                }
+                labelStack.Pop();
+            }
+
+            /// <summary>
+            /// Write the entire menu structure for a single root item.
+            /// </summary>
+            /// <param name="rootMenuItem"></param>
+            /// <returns>
+            /// The HTML markup as a string.
+            /// </returns>
+            string WriteMenuStructure(ClientMenuItem rootMenuItem, int fevid)
+            {
+                // This contains the output HTML
+                StringBuilder builder = new StringBuilder();
+
+                // Recursively write all the categories and the menu items below them
+                foreach (ClientMenuItem menuItem in rootMenuItem.Children)
+                {
+                    WriteCategory(builder, menuItem, fevid);
+                }
+
+                // Return the HTML code
+                return builder.ToString();
+            }
+
+        }
+
+        @*assign the sidebar-menu apps, Reports, and Fav*@
+        <div id="sidebarmenu" class="sidebar-menu">
+            <ul id="tabs" class="tab-lists">
+                <li><button id="tab1">Apps</button></li>
+                <li><button id="tab2">QIP</button></li>
+                <li><button id="tab3">Fav</button></li>
+                <li><button id="tab4">Search</button></li>
+            </ul>
+
+            @*All app to binding to sidebar app section as per landing page and user*@
+            <div class="container-menu" id="tab1C">
+                <div class="applists tablist1" id="applists">
+
+                    @{ // Build the app tree
+                        string appHtml = WriteMenuStructure(Model.AppTree, 1); }
+                    @* Write the html directly in *@
+                    <ul class="m-0 categoryHeadList categoryAppIcons">
+                        @Html.Raw(appHtml) 
+                        @*App list empty screen*@
+                        <li class="searchResultNotFound px-4" id="appListsNotFound">
+                            <div class="text-center">
+                                <div class="mb-2">
+                                    <img src="../../img/no-result.svg" alt="empty fav list" />
+                                </div>
+                                <div class="p-text">
+                                    App list is empty
+                                </div>
+                                <div class="small-text font-italic" id="searchResultNotFoundIns">
+                                    Find the support section under the Help page. Where you can raise ticket for the apps access
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            @*All Report to binding to sidebar app section as per landing page and user*@
+            <div class="container-menu" id="tab2C">
+                <div class="applists tablist1" id="reportlists">
+                    @{ // Build the app tree
+                        string reportHtml = WriteMenuStructure(Model.ReportTree, 2); }
+                    @* Write the html directly in *@
+                    <ul class="m-0 categoryHeadList categoryReportsIcons">
+                        @Html.Raw(reportHtml)
+                        @*Report list empty screen*@
+                        <li class="searchResultNotFound px-4" id="reportListsNotFound">
+                            <div class="text-center">
+                                <div class="mb-2">
+                                    <img src="../../img/no-result.svg" alt="empty report list" />
+                                </div>
+                                <div class="p-text">
+                                    Report list is empty
+                                </div>
+                                <div class="small-text font-italic" id="searchResultNotFoundIns">
+                                    Find the support section under the Help page. Where you can raise ticket for the reports access
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+
+            @*All Favourite to binding to sidebar app section as per landing page and user*@
+            <div class="container-menu" id="tab3C">
+                <div class="applists tablist1" id="applists">
+                    @{ // Build the app tree
+                        string favHtml = WriteMenuStructure(Model.FavTree, 3); }
+                    @* Write the html directly in *@
+                    <ul class="m-0" id="Fevid">
+                        @Html.Raw(favHtml)
+                        @*Fav list empty screen*@
+                        <li class="searchResultNotFound px-4" id="favListsNotFound">
+                            <div class="text-center">
+                                <div class="mb-2">
+                                    <img src="../../img/no-result.svg" alt="empty fav list" />
+                                </div>
+                                <div class="p-text">
+                                    Favorites list is empty
+                                </div>
+                                <div class="small-text font-italic" id="searchResultNotFoundIns">
+                                    Click the ‘Star’ icon on any <br /> page to add to favorites
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            @*All Search to binding to sidebar app section as per landing page and user*@
+            <div class="container-menu" id="tab4C">
+                <div class="applists tablist1" id="applists">
+                    <ul class="abc SearchAll m-0" id="UlSearch">
+
+                        @*Search result not found*@
+                        <li class="searchResultNotFound px-4" id="searchResultNotFound">
+                            <div class="text-center">
+                                <div class="mb-2">
+                                    <img src="../../img/no-search-result.svg" alt="search result not found" />
+                                </div>
+                                @*d-none class for if user came search tab without any seach keyword. else d-none class shoult be removed*@
+                                @*<div class="p-text">
+                                        Sorry! No result found :-(
+                                    </div>*@
+                                <div class="small-text font-italic" id="searchResultNotFoundIns">
+                                    Search by keyword <br /> through the search box
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>}

@@ -1,0 +1,125 @@
+﻿<!-- ------------------------------------------------------------------------------
+       This file is copyright Expleo 2021.
+     ------------------------------------------------------------------------------ -->
+@model QipPortal.Models.Account.LoginViewModel 
+
+@{
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+    ViewData["Title"] = "Log in";
+}
+
+<main>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            
+            if ($("#hfName").val() == '' && $("#hfPassword").val() == '') {
+                $(".text-danger").css("display", "block");
+            }
+ 
+            if ($("#hfName").val() != '') {
+                $("#username").val($("#hfName").val());
+            }  
+
+            if ($("#hfPassword").val() != '') {
+                $("#Password").val($("#hfPassword").val());
+            }  
+        });
+        //For click passwordVisibility button Password Input Visibility
+        function PasswordInputVisibility() {
+            var x = document.getElementById("Password");
+            var y = document.getElementById("PasswordIndicator");
+            if (x.type === "password") {
+                x.type = "text";
+            } else {
+                x.type = "password";
+            }
+            if (y.src.includes('HidePassword.svg') == true) {
+                y.src = '../../img/icons/ShowPassword.svg';
+            } else {
+                y.src = '../../img/icons/HidePassword.svg';
+            }
+        }
+
+        //For click login button assien value Hidden feilds
+        function validateAndLogin() {
+            var username = document.getElementById("username");
+            var password = document.getElementById("Password");
+            $("#hfName").val(username.value);
+            $("#hfPassword").val(password.value);
+            $("#btnSubmit").click();
+        }
+        //For check Password enter event
+        function checkAndPassword(e) {   
+            $("ul li:last").css("display", "none");
+            document.getElementById('PasswordIndicator').disabled = false;
+            if (e.keyCode == 13) {
+                validateAndLogin();
+            }
+        }
+        //For check username key press event
+        function checkAndusername(e) { 
+            $("ul li:first").css("display", "none");
+            if (e.keyCode == 13) {
+                validateAndLogin();
+            }
+        }
+    </script>
+    <div class="container-fluid first-container">
+        <div class="row login-container w-100">
+            <div class="col-xl-7 col-12 hide-mobile">
+                @* Banner Images Added *@
+                <div class="banner-top">
+                    <div class="banner-top-content">
+                        <h1 class="welcome">Welcome to </h1>
+                        <img alt="xplatfrom logo" src="../../img/Platform.svg" class="banner">
+                        <p class="welcome-text">
+                            Software Delivery Lifecycle Management Platform & Toolkit
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-5 col-12">
+                <div class="login-inform">
+                    @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "login-form" }))
+                    {
+                        @Html.HiddenFor(m => m.Username, new { @id = "hfName" })
+                        @Html.HiddenFor(m => m.Password, new { @id = "hfPassword" })
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <input type="submit" style="display:none;" value="Submit" id="btnSubmit" />
+                    }
+                    <div class="form-group">
+                        <input name="Username" id="username" type="text" class="form-control" placeholder="Enter Username" onKeyPress="return checkAndusername(event);">
+                        <label for="username">Username</label>
+                    </div>
+                    <div class="form-group">
+                        <div style="display: flex;">
+                            <input name="Password" id="Password" type="password" class="form-control" placeholder="Enter Password" onKeyPress="return checkAndPassword(event);">
+                            <label for="Password">Password</label>
+                            <input name="Imagesubmit" id="PasswordIndicator" type="image" src="../../img/icons/HidePassword.svg" alt="PasswordVisible" onclick="PasswordInputVisibility()" />
+                        </div>
+                    </div>
+                    <div class="form-check text-right">
+                        <button type="submit" class="btn btn-primary" onclick="return validateAndLogin();" onkeypress="return checkAndSubmit(event);">LOGIN</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="version-container">
+            <p title="Build number: @ViewBag.BuildNo, Version date: @ViewBag.VersionDate">Version no. <span class="version-span">@ViewBag.VersionNo</span></p>
+        </div>
+    </div>
+    <script>
+        /*device height reader*/
+        function resetHeight() {
+            // reset the height to that of the inner browser
+            $(".first-container").css("height", (window.innerHeight - 1) + "px");
+
+        }
+        // reset the height whenever the window's resized
+        window.addEventListener("resize", resetHeight, false);
+        // called to initially set the height.
+        resetHeight();
+    </script>
+</main>

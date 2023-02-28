@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49 (51002) - http://www.bohemiancoding.com/sketch -->
+    <title>Group 12</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#FAD961" offset="0%"></stop>
+            <stop stop-color="#F76B1C" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="System-Dashboard-Copy-5" transform="translate(-1012.000000, -120.000000)">
+            <g id="Group-12" transform="translate(1012.000000, 120.000000)">
+                <circle id="Oval-4" fill="url(#linearGradient-1)" cx="10" cy="10" r="10"></circle>
+                <g id="noun_6141_cc" transform="translate(9.000000, 4.000000)" fill="#FFFFFF" fill-rule="nonzero">
+                    <g id="Group">
+                        <path d="M0.01975,5.9672381 C0.02525,5.99683333 0.036,6.02459524 0.04425,6.05340476 C0.05425,6.09007143 0.0625,6.1272619 0.0765,6.16288095 C0.08975,6.19640476 0.108,6.22678571 0.1245,6.25821429 C0.13925,6.2865 0.151,6.31609524 0.1685,6.34307143 C0.202,6.39545238 0.2405,6.44390476 0.28225,6.48895238 C0.28625,6.49340476 0.28875,6.49838095 0.29275,6.50283333 L4.29275,10.6933095 C4.68325,11.1024048 5.31625,11.1024048 5.70675,10.6933095 C6.09725,10.2839524 6.09725,9.62080952 5.70675,9.21171429 L2,5.32792857 L2,1.11309524 C2,0.534547619 1.55225,0.0654761905 1,0.0654761905 C0.44775,0.0654761905 0,0.534547619 0,1.11309524 L0,5.76164286 C0,5.83052381 0.00675,5.89940476 0.01975,5.9672381 Z" id="Shape"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

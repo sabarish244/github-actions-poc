@@ -1,0 +1,28 @@
+{
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iis": {
+      "applicationUrl": "http://localhost/QipPortalDev2",
+      "sslPort": 0
+    },
+    "iisExpress": {
+      "applicationUrl": "http://localhost:4455",
+      "sslPort": 44382
+    }
+  },
+  "profiles": {
+    "WSL 2": {
+      "commandName": "WSL2"
+    },
+    "IIS": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "remoteDebugEnabled": false,
+      "sqlDebugging": false
+    }
+  }
+}

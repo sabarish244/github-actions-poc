@@ -1,0 +1,46 @@
+﻿@using System.Security.Principal
+@using System.Security.Claims
+
+@*
+    <ul class="SSO-userName">
+        @if (User.Identity.IsAuthenticated)
+        {
+        <li class="nav-item">
+            <span class="navbar-text text-dark">Hello @User.Identity.Name!</span>
+             @User.Claims.First(c => c.Type == "emails").Value 
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="Logout">Sign out</a>
+        </li>
+                    }
+                    else
+                    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="Login">Sign in</a>
+        </li>
+    }
+*@
+
+@*
+    <div class="SSO-userName mt-0">
+        @{
+            ViewData["Title"] = "Claims";
+        }
+        <h2>@ViewData["Title"].</h2>
+
+        <table class="table-hover table-condensed table-striped">
+            <tr>
+                <th>Claim Type</th>
+                <th>Claim Value</th>
+            </tr>
+
+            @foreach (Claim claim in User.Claims)
+            {
+                <tr>
+                    <td>@claim.Type</td>
+                    <td>@claim.Value</td>
+                </tr>
+            }
+        </table>
+    </div>
+*@

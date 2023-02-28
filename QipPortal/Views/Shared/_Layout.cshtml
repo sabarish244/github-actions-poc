@@ -1,0 +1,608 @@
+﻿<!-- ------------------------------------------------------------------------------
+       This file is copyright Expleo 2021.
+     ------------------------------------------------------------------------------ -->
+@using Microsoft.AspNetCore.Http
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+
+    <meta charset="UTF-8">
+    <title>X Platform</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://kit.fontawesome.com/925dfd6778.js"></script>
+
+    <script src="~/js/custom.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/main.css" />
+    <link rel="stylesheet" href="~/css/dore.light.purple.css" />
+    <link rel="stylesheet" href="~/css/custom.css" />
+    <link rel="stylesheet" href="~/css/jquery.contextMenu.css" />
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <link href="~/css/style_M.css" rel="stylesheet" />
+    <link rel="icon" type="image/png" href="~/favicon.ico">
+
+    <script type="text/javascript">
+        /*Page Loader*/
+        $(window).on('load', function () {
+            $('.pageLoder').addClass("d-none");
+            $("body").css("overflow-y", "auto");
+        })
+    </script>
+</head>
+
+<body id="app-container" class="menu-sub-hidden">
+    <input type="hidden" id="ReportID" name="ReportID" value="0">
+    <input type="hidden" id="hdnLoggerID" name="hdnLoggerID" value="0">
+    <input type="hidden" id="alreadyFevID" name="alreadyFevID" value="0">
+    @*Page Loader*@
+    <div class="pageLoder">
+        <div class="Xlogo">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            X
+        </div>
+    </div>
+
+    @*== Welcome Modal ===*@
+    <div class="modal fade" id="VersionModal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" style="max-width: 800px;">
+            <div class="modal-content" style="border-radius: 10px; overflow: hidden">
+                <div class="modal-header px-sm-5 px-3 py-3 p-0 m-0 d-block" style="height: auto">
+                    <div class="d-flex w-100 justify-content-between align-items-center">
+                        <div class="p-text">
+                            Welcome
+                            <br />
+                            <div class="h1-text">
+                                @User.Identity.Name
+                            </div>
+                        </div>
+                        <div class="text-right p-text">
+                            Current Version <strong>@ViewBag.VersionNo</strong>
+                            <div class="mt-2">
+                                Released on <strong>02 Aug 2022</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body d-block px-sm-5 px-3 py-3 p-0 m-0">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div class="h1-text">
+                            What's new in X Platform?
+                        </div>
+                        <div>
+                            <button class="d-flex align-items-center cursor-pointer" data-dismiss="modal" onclick="ShowNonResourceItem('help');">
+                                <div>
+                                    <img alt="version-file" src="../../img/icons/Version-File.svg">
+                                </div>
+                                <div class="p-text">
+                                    <strong><span>Version history</span></strong>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-text mt-2">
+                        See the latest updates, new features, and tools, and get the most of your X Platform experience.
+                    </div>
+                    <div class="ml-3 mt-3">
+                        <div class="d-flex mt-2">
+                            <div>
+                                <img alt="version" src="../../img/icons/Version-Add.svg">
+                            </div>
+                            <div class="ml-2">
+                                <div class="h1-text">
+                                    What’s New?
+                                </div>
+                                <div class="p-text">
+                                    <ul class="ml-3">
+                                        <li>Added SDLC, MBU, and CBU views in menu and sitemap as default for all users</li>
+                                        <li>Land directly on QIP Tab, when the user doesn't have the access to apps</li>
+                                        <li>Sidebar collapse feature</li>
+                                        <li>Added TDC, DIARY and DevOps Maturity Analyzer App</li>
+                                        <li>Included project name under the app names for sidebar favorites and search results</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer d-block px-sm-5 pb-3 pt-0 py-3 px-3 p-0 m-0">
+                    <div class="d-flex justify-content-between align-items-center pb-3">
+                        <div class="p-text">
+                            <i>You can view the same details in the help tab</i>
+                        </div>
+                        <div>
+                            <button type="button" class="enterPopupbtn" data-dismiss="modal">Continue</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <nav class="container">
+        <div class="navBarhead">
+            <div class="d-flex flex-wrap justify-content-between align-items-center">
+                <div class="d-block d-xl-none col-6 order-1 mobNavLogo">
+                    <a href="~/?bas=233">
+                        <img src="../../img/Expleo_logo.svg" width="80" alt="xplatfrom">
+                    </a>
+                </div>
+                <div class="col-xl-2 order-1 collapsedNavLogo text-center">
+                    <a href="~/?bas=233">
+                        <img src="../../img/icons/xplatform-logo-collapse.png" width="140" alt="xplatfrom">
+                    </a>
+                </div>
+                <div class="navBarSearchBtn col-12 col-xl-8 p-0 pl-xl-2 pl-xl-0 pl-3 pr-3 pr-xl-0 order-4 order-xl-1 pt-4 pt-xl-0">
+                    <div class="d-flex align-items-center">
+                        <div class="d-block d-xl-none">
+                            <div class="d-flex align-items-center justify-content-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" id="mobHamburger" width="24" height="24" viewBox="0 0 24 24" style=" fill:#000000;">
+                                    <path d="M 2 5 L 2 7 L 22 7 L 22 5 L 2 5 z M 2 11 L 2 13 L 22 13 L 22 11 L 2 11 z M 2 17 L 2 19 L 22 19 L 22 17 L 2 17 z"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="flex-grow-1 pl-3">
+                            <input type="text" name="search" id="txtsearchapp" maxlength="50" oninput="OnSearchTextChanged();" role="search" placeholder="Search by Keyword" />
+                            <label for="txtsearchapp" hidden>Search text box</label>
+                        </div>
+                        <div class="p-0">
+                            <button class="navBarSearchBtnIcon disabledButton text-hide" id="btnsearchsubmit" disabled onclick="OnSearchClicked();" type="submit">
+                                submit
+                                <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M23.9642 3.0381C19.9325 -1.00475 13.3868 -1.01387 9.34397 3.01782C5.44304 6.90793 5.27799 13.1736 8.96862 17.2638L8.17912 18.0533C7.54126 17.4153 6.50702 17.4152 5.86909 18.0531C5.86902 18.0531 5.86896 18.0532 5.86889 18.0533L0.478523 23.4436C-0.159405 24.0815 -0.159542 25.1157 0.478318 25.7537C0.478386 25.7537 0.478455 25.7538 0.478523 25.7539L1.24842 26.5238C1.88628 27.1614 2.92025 27.1614 3.55811 26.5238L8.94848 21.1334C9.5864 20.4955 9.58654 19.4613 8.94868 18.8234C8.94861 18.8233 8.94854 18.8232 8.94848 18.8232L9.73797 18.0337C13.974 21.8618 20.5114 21.5311 24.3395 17.2951C28.0372 13.2034 27.8721 6.92957 23.9642 3.0381ZM8.17912 20.363L2.78876 25.7533C2.57614 25.9659 2.23148 25.9659 2.01886 25.7533L1.24896 24.9829C1.03675 24.7703 1.03675 24.4261 1.24896 24.2135L6.63933 18.8232C6.85467 18.6173 7.19388 18.6173 7.40923 18.8232L8.17912 19.5936C8.39133 19.8062 8.39133 20.1504 8.17912 20.363ZM23.1948 16.8984C19.58 20.5131 13.7193 20.513 10.1046 16.8982C6.48994 13.2834 6.49001 7.42267 10.1048 3.80799C13.7196 0.193386 19.5801 0.193386 23.1948 3.80799C26.8037 7.42526 26.8037 13.2812 23.1948 16.8984Z" fill="white" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-5 col-xl-3 p-0 pr-3 pl-xl-3 order-2 navBarUserIcon">
+                    <div>
+                        <div class="d-flex justify-content-end justify-content-xl-between align-items-center">
+                            <div class="mr-4 mr-sm-5 mr-xl-0">
+                                <button tabindex="0" onclick="ShowNonResourceItem('Site Map')"><img src="../../img/icons/map-icon.png" alt="map-icon" title="Sitemap" class="cursor-pointer d-none d-xl-block siteMapNavIcon" /></button>
+                                <img src="../../img/icons/map-icon-mob.png" alt="map-icon" title="Sitemap" role="button" tabindex="0" onclick="ShowNonResourceItem('Site Map')" class="cursor-pointer d-block d-xl-none siteMapNavIcon" />
+                            </div>
+                            <div class="d-xl-none d-block mobileNavMenuHead">
+                                <img src='../../img/icons/Threedots.svg' alt="menu" class="mobileNavMenuButton" />
+                                <div class="mobileNavMenuFlotingOptions d-none">
+                                    <div class="p-text d-flex align-items-center mobileNavMenuUserIcon">
+                                        <svg width="22" height="19" viewBox="0 0 22 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M18.7782 12.2825C17.5801 11.2478 16.1541 10.4818 14.5982 10.0181C16.2646 9.02689 17.3594 7.36799 17.3594 5.49219C17.3594 2.4638 14.5066 0 11 0C7.49345 0 4.64062 2.4638 4.64062 5.49219C4.64062 7.36799 5.73543 9.02689 7.40188 10.0181C5.84598 10.4818 4.41994 11.2478 3.22184 12.2825C1.14421 14.0768 0 16.4625 0 19H1.71875C1.71875 14.5802 5.88229 10.9844 11 10.9844C16.1177 10.9844 20.2812 14.5802 20.2812 19H22C22 16.4625 20.8558 14.0768 18.7782 12.2825ZM11 9.5C8.44117 9.5 6.35938 7.70213 6.35938 5.49219C6.35938 3.28225 8.44117 1.48438 11 1.48438C13.5588 1.48438 15.6406 3.28225 15.6406 5.49219C15.6406 7.70213 13.5588 9.5 11 9.5Z" fill="black" />
+                                        </svg>
+                                        <div class="p-text">
+                                            @User.Identity.Name
+                                        </div>
+                                    </div>
+                                    <div class="p-text align-items-center mobileNavMenuUserIcon d-flex" onclick="ShowLogoutModal();">
+                                        <svg class="cursor-pointer" width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M18.716 8.82665L15.0588 5.23547C14.9687 5.14704 14.8618 5.07689 14.7442 5.02903C14.6265 4.98118 14.5004 4.95654 14.373 4.95654C14.2457 4.95654 14.1196 4.98118 14.0019 5.02903C13.8843 5.07689 13.7774 5.14704 13.6873 5.23547C13.5054 5.41406 13.4033 5.65627 13.4033 5.90882C13.4033 6.16138 13.5054 6.40359 13.6873 6.58217L15.689 8.54776H5.10019C4.84299 8.54776 4.59633 8.64809 4.41447 8.82667C4.2326 9.00526 4.13043 9.24747 4.13043 9.50002C4.13043 9.75258 4.2326 9.99479 4.41447 10.1734C4.59633 10.352 4.84299 10.4523 5.10019 10.4523H15.689L13.6873 12.4179C13.5054 12.5965 13.4033 12.8387 13.4033 13.0912C13.4033 13.3438 13.5055 13.586 13.6873 13.7646C13.8692 13.9432 14.1159 14.0435 14.3731 14.0435C14.6303 14.0435 14.8769 13.9432 15.0588 13.7646L18.716 10.1734C18.8978 9.99477 19 9.75256 19 9.5C19 9.24745 18.8978 9.00524 18.716 8.82665Z" fill="black" />
+                                            <path d="M11.413 15.069C11.1536 15.069 10.9048 15.1725 10.7213 15.3568C10.5378 15.5411 10.4348 15.7911 10.4348 16.0517V17.0345H1.95652V1.96552H10.4348V2.94828C10.4348 3.20892 10.5378 3.45889 10.7213 3.64319C10.9048 3.82749 11.1536 3.93103 11.413 3.93103C11.6725 3.93103 11.9213 3.82749 12.1048 3.64319C12.2882 3.45889 12.3913 3.20892 12.3913 2.94828V1.63793C12.3913 1.42283 12.3491 1.20984 12.2672 1.01112C12.1853 0.812399 12.0652 0.631835 11.9138 0.479739C11.7624 0.327643 11.5826 0.206994 11.3848 0.12468C11.187 0.0423663 10.975 0 10.7609 0H1.63043C1.19802 0 0.783309 0.172567 0.477543 0.479739C0.171777 0.786911 0 1.20352 0 1.63793V17.3621C0 17.7965 0.171777 18.2131 0.477543 18.5203C0.783309 18.8274 1.19802 19 1.63043 19H10.7609C10.975 19 11.187 18.9576 11.3848 18.8753C11.5826 18.793 11.7624 18.6724 11.9138 18.5203C12.0652 18.3682 12.1853 18.1876 12.2672 17.9889C12.3491 17.7902 12.3913 17.5772 12.3913 17.3621V16.0517C12.3913 15.7911 12.2882 15.5411 12.1048 15.3568C11.9213 15.1725 11.6725 15.069 11.413 15.069Z" fill="black" />
+                                        </svg>
+                                        <div class="p-text">
+                                            Logout
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-text d-xl-flex d-none align-items-center userNameSelect">
+                                <svg width="22" height="19" viewBox="0 0 22 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M18.7782 12.2825C17.5801 11.2478 16.1541 10.4818 14.5982 10.0181C16.2646 9.02689 17.3594 7.36799 17.3594 5.49219C17.3594 2.4638 14.5066 0 11 0C7.49345 0 4.64062 2.4638 4.64062 5.49219C4.64062 7.36799 5.73543 9.02689 7.40188 10.0181C5.84598 10.4818 4.41994 11.2478 3.22184 12.2825C1.14421 14.0768 0 16.4625 0 19H1.71875C1.71875 14.5802 5.88229 10.9844 11 10.9844C16.1177 10.9844 20.2812 14.5802 20.2812 19H22C22 16.4625 20.8558 14.0768 18.7782 12.2825ZM11 9.5C8.44117 9.5 6.35938 7.70213 6.35938 5.49219C6.35938 3.28225 8.44117 1.48438 11 1.48438C13.5588 1.48438 15.6406 3.28225 15.6406 5.49219C15.6406 7.70213 13.5588 9.5 11 9.5Z" fill="black" />
+                                </svg>
+                                <div class="p-text ml-2">
+                                    @RenderSection("UserOptions", required: false)
+                                </div>
+                            </div>
+                            <div class="d-xl-block d-none userLogoutButton" title="Logout">
+                                <button class="text-hide" onclick="ShowLogoutModal();">
+                                    logout
+                                    <svg class="cursor-pointer" role="button" width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M18.716 8.82665L15.0588 5.23547C14.9687 5.14704 14.8618 5.07689 14.7442 5.02903C14.6265 4.98118 14.5004 4.95654 14.373 4.95654C14.2457 4.95654 14.1196 4.98118 14.0019 5.02903C13.8843 5.07689 13.7774 5.14704 13.6873 5.23547C13.5054 5.41406 13.4033 5.65627 13.4033 5.90882C13.4033 6.16138 13.5054 6.40359 13.6873 6.58217L15.689 8.54776H5.10019C4.84299 8.54776 4.59633 8.64809 4.41447 8.82667C4.2326 9.00526 4.13043 9.24747 4.13043 9.50002C4.13043 9.75258 4.2326 9.99479 4.41447 10.1734C4.59633 10.352 4.84299 10.4523 5.10019 10.4523H15.689L13.6873 12.4179C13.5054 12.5965 13.4033 12.8387 13.4033 13.0912C13.4033 13.3438 13.5055 13.586 13.6873 13.7646C13.8692 13.9432 14.1159 14.0435 14.3731 14.0435C14.6303 14.0435 14.8769 13.9432 15.0588 13.7646L18.716 10.1734C18.8978 9.99477 19 9.75256 19 9.5C19 9.24745 18.8978 9.00524 18.716 8.82665Z" fill="black" />
+                                        <path d="M11.413 15.069C11.1536 15.069 10.9048 15.1725 10.7213 15.3568C10.5378 15.5411 10.4348 15.7911 10.4348 16.0517V17.0345H1.95652V1.96552H10.4348V2.94828C10.4348 3.20892 10.5378 3.45889 10.7213 3.64319C10.9048 3.82749 11.1536 3.93103 11.413 3.93103C11.6725 3.93103 11.9213 3.82749 12.1048 3.64319C12.2882 3.45889 12.3913 3.20892 12.3913 2.94828V1.63793C12.3913 1.42283 12.3491 1.20984 12.2672 1.01112C12.1853 0.812399 12.0652 0.631835 11.9138 0.479739C11.7624 0.327643 11.5826 0.206994 11.3848 0.12468C11.187 0.0423663 10.975 0 10.7609 0H1.63043C1.19802 0 0.783309 0.172567 0.477543 0.479739C0.171777 0.786911 0 1.20352 0 1.63793V17.3621C0 17.7965 0.171777 18.2131 0.477543 18.5203C0.783309 18.8274 1.19802 19 1.63043 19H10.7609C10.975 19 11.187 18.9576 11.3848 18.8753C11.5826 18.793 11.7624 18.6724 11.9138 18.5203C12.0652 18.3682 12.1853 18.1876 12.2672 17.9889C12.3491 17.7902 12.3913 17.5772 12.3913 17.3621V16.0517C12.3913 15.7911 12.2882 15.5411 12.1048 15.3568C11.9213 15.1725 11.6725 15.069 11.413 15.069Z" fill="black" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="divbackauto" style="padding-left: 20.6875rem;display:none;">
+            <a onclick="SwitchViews('Test Automation Suite', '83', '250','38')"><img alt="bench" src="../../img/icons/LaftblueArrowback.png"> </a>
+        </div>
+    </nav>
+
+    <main>
+        <div class="d-flex">
+            <div class="custom-sidebar-head d-none d-xl-block" id="sidebarBS">
+            </div>
+            <aside class="sidebar custom-sidebar d-none d-xl-block pt-3" id="sidebarbass">
+                <div class="px-4 pt-3 pb-2 text-center">
+                    <a href="~/?bas=233" tabindex="1" class="logo-header text-hide">
+                        <img class="logo-label  pb-2 pl-2" alt="xplatform" width="180" src="../../img/Expleo_logo.svg">
+                    </a>
+                    <hr class=" mx-0 mt-4 mb-0" />
+                </div>
+                <!--Call sidebar navigation partial-->
+                @RenderSection("NavSidebar", required: false)
+                @*This Part Menu Footer added Build number,version date and help part*@
+                <div class="footermenu px-4">
+                    <hr class="mx-0 mt-0 mb-0" />
+                    <div class="d-flex align-items-center sidebar-footer-version pt-2 py-2 text-center">
+                        <div class="col-5" style="border-right: 1px solid #fff">
+                            <div>
+                                <button class="d-flex sidebar-footer-help align-items-center" onclick="ShowNonResourceItem('User_Guide');">
+                                    <div>
+                                        <img alt="help" src="../../img/icons/HelpVersion.svg" />
+                                    </div>
+                                    <div class="p-text pl-2">
+                                        Help
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-7 px-1 pl-3">
+                            <button class="p-text sidebar-footer-version-hover" onclick="ShowNonResourceItem('help');" title="Build number: @ViewBag.BuildNo, Version date: @ViewBag.VersionDate">
+                                Version <strong title="Build number: @ViewBag.BuildNo, Version date: @ViewBag.VersionDate">@ViewBag.VersionNo</strong>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+            <div class="closeIconHamburger">
+                <img src="../../img/icons/close-icon.svg" alt="Expleo" />
+            </div>
+            @*resizable sidebar element*@
+            <div id="resizableSideBar"></div>
+            @*collapse sidebar element*@
+            <div id="collapseSideBar">
+                <svg width="15" height="25" viewBox="0 0 15 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1.16092 10.7913L1.16101 10.7913L10.6965 1.14266C10.6965 1.14266 10.6965 1.14266 10.6965 1.14266C11.4971 0.332533 12.803 0.324703 13.613 1.12545L1.16092 10.7913ZM1.16092 10.7913C0.761218 11.196 0.562731 11.7257 0.565841 12.2527C0.568948 12.7794 0.77316 13.3068 1.17777 13.707L1.17792 13.7071L10.8265 23.2423C11.6366 24.0433 12.9426 24.0358 13.7431 23.2252C14.5436 22.4153 14.5358 21.1097 13.726 20.3091L13.7259 20.309L5.54415 12.2234L13.6302 4.04181L13.6303 4.04172C14.4306 3.23157 14.423 1.92601 13.6131 1.12552L1.16092 10.7913Z" fill="#6946C6" stroke="#6946C6" />
+                </svg>
+            </div>
+            <section class="flex-grow-1 mainDivForApps w-100">
+
+                <div>
+                    <partial name="_LoginPartial" />
+                </div>
+
+                <div>
+                    <div class="container-fluid" id="containerfluid">
+                        <partial name="_ConsentPartial" />
+                        <!-- Begin Body -->
+                        @RenderBody()
+                        <!-- End Body -->
+                    </div>
+                </div>
+                @*App not found screen*@
+                <div id="divAppNotFound" class="d-none">
+                    <div class="appNotFound text-center">
+                        <img alt="app no found" src="../../img/appnotfound.svg">
+                        <div class="h1-text">
+                            App not found
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <div class="modal fade" id="LogoutModal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-logout">
+            <div class="modal-content" style="border-radius: 5px; overflow: hidden">
+                <div class="modal-body logoutbnts p-sm-5 p-3" style="border-radius: 10px">
+                    <div class="logoutCancelIcon">
+                        <button class="text-hide" data-dismiss="modal">
+                            close button
+                            <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M8.87424 7.49996L14.7149 1.65908C15.0951 1.27916 15.0951 0.664869 14.7149 0.284944C14.335 -0.0949813 13.7207 -0.0949813 13.3408 0.284944L7.49992 6.12583L1.65922 0.284944C1.27911 -0.0949813 0.665003 -0.0949813 0.285078 0.284944C-0.0950259 0.664869 -0.0950259 1.27916 0.285078 1.65908L6.12579 7.49996L0.285078 13.3408C-0.0950259 13.7208 -0.0950259 14.3351 0.285078 14.715C0.474417 14.9045 0.723371 14.9997 0.972147 14.9997C1.22092 14.9997 1.4697 14.9045 1.65922 14.715L7.49992 8.8741L13.3408 14.715C13.5303 14.9045 13.7791 14.9997 14.0279 14.9997C14.2767 14.9997 14.5254 14.9045 14.7149 14.715C15.0951 14.3351 15.0951 13.7208 14.7149 13.3408L8.87424 7.49996Z" fill="#ABABAB" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="text-center">
+                        <div>
+                            <img alt="Modal-logout" src="../../img/icons/logout-popup-icon.svg" width="100%">
+                        </div>
+                        <div class="h1-text mt-2"><span>Come Back Soon!</span></div>
+                        <div class="p-text mt-2">
+                            @*That you want or need to remove want*@
+                            Are you sure want to <br />
+                            logout from <span class="X">X</span> <small class="Platform">Platform</small>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-center mt-4 mt-sm-5">
+                        <div>
+                            <a class="logoutno" data-dismiss="modal">Cancel</a>
+                        </div>
+                        <div>
+                            <a asp-action="Logout" asp-controller="Account" class="logout-accept">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Feed back modal -->
+    <div class="modal fade" id="feedbackfromforapp" tabindex="-1" role="dialog" aria-labelledby="feedbackfromforappTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header p-0 p-3" style="height: auto">
+                    <div class="d-flex justify-content-between align-items-center" style="width: 100%">
+                        <div class="p-text" id="feedbackfromforappTitle">
+                            Feedback form
+                        </div>
+                        <div>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body p-0 p-3">
+                    <iframe width="100%" height="480px" src="https://forms.office.com/r/Lj57bNedBV" frameborder="0" marginwidth="0" marginheight="0" style="border: none;" allowfullscreen webkitallowfullscreen mozallowfullscreen msallowfullscreen> </iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SSO modal screens -->
+    <!-- Idle timer expired -->
+    <div class="modal fade sso-popups" id="idleTimeExpiredPopup" tabindex="-1" role="dialog" aria-labelledby="idleTimeExpiredPopupTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body p-0 p-3">
+                    <div>
+                        <div class="idleTimeExpiredPopupImg text-center">
+                            <img src="../../img/idealTimeExpiredImg.svg" />
+                        </div>
+                        <div class="idleTimeExpiredPopupContent pl-3 mt-4">
+                            <div class="h1-text" id="idleTimeExpiredPopupTitle">
+                                Idle timer expired
+                            </div>
+                            <div class="p-text">
+                                There was no activity for a while so we closed the session
+                            </div>
+                        </div>
+                        <div class="idleTimerBtn text-center mt-4 mb-3">
+                            <button>Ok</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Access Required -->
+    <div class="modal fade sso-popups" id="accessRequiredPopup" tabindex="-1" role="dialog" aria-labelledby="accessRequiredPopupTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body p-0 p-3">
+                    <div>
+                        <div class="idleTimeExpiredPopupImg text-center">
+                            <img src="../../img/access-required-img.svg" />
+                        </div>
+                        <div class="idleTimeExpiredPopupContent pl-3 mt-4">
+                            <div class="h1-text" id="accessRequiredPopupTitle">
+                                Access Required
+                            </div>
+                            <div class="p-text">
+                                User is not authorized to access X Platform,
+                                You can request access through <a href="https://expleo-apps.easyvista.com/index.php?timestamp=1634622040896&name=com.expleo.60c8b19e70b3c" target="_blank"><strong><span>EasyVista</span></strong></a>
+                            </div>
+                        </div>
+                        <div class="idleTimerBtn p-text mt-4 mb-3">
+                            <div class="d-flex justify-content-around">
+                                <div><button class="logoutIdle">Logout (<span>10s</span>)</button></div>
+                                <div><button>Request Access</button></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Your account is restricted -->
+    <div class="modal fade sso-popups" id="accountRestrictedPopup" tabindex="-1" role="dialog" aria-labelledby="accountRestrictedPopupTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body p-0 p-3">
+                    <div>
+                        <div class="idleTimeExpiredPopupImg text-center">
+                            <img src="../../img/account-restricted-img.svg" />
+                        </div>
+                        <div class="idleTimeExpiredPopupContent pl-3 mt-4">
+                            <div class="h1-text" id="accountRestrictedPopupTitle">
+                                Your account has restricted access
+                            </div>
+                            <div class="p-text">
+                                User is not authorized to access X Platform,
+                                You can request access through <a href="https://expleo-apps.easyvista.com/index.php?timestamp=1634622040896&name=com.expleo.60c8b19e70b3c" target="_blank"><strong><span>EasyVista</span></strong></a>
+                            </div>
+                        </div>
+                        <div class="idleTimerBtn p-text mt-4 mb-3">
+                            <div class="d-flex justify-content-around">
+                                <div><button class="logoutIdle">Logout (<span>10s</span>)</button></div>
+                                <div><button>Request Access</button></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- session timer -->
+    <div class="modal fade sso-popups" id="sessionTimerPopup" tabindex="-1" role="dialog" aria-labelledby="sessionTimerPopupTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body p-0 p-3">
+                    <div>
+                        <div class="stillTherePopupTimerHead">
+                            <div class="stillTherePopupTimerContainer">
+                                <div class="stillTherePopupTimer">00:20</div>
+                                <progress class="stillTherePopupTimerProgress" id="test" max="30" value="20"></progress>
+                            </div>
+                        </div>
+                        <div class="idleTimeExpiredPopupContent pl-3 mt-4">
+                            <div class="h1-text" id="sessionTimerPopupTitle">
+                                Are you still there?
+                            </div>
+                            <div class="p-text">
+                                If not, we’ll close this session
+                            </div>
+                        </div>
+                        <div class="idleTimerBtn p-text mt-4 mb-3">
+                            <div class="d-flex justify-content-around">
+                                <div><button class="logoutIdle">Logout</button></div>
+                                <div><button>I'm here'</button></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    @*Add fav notification*@
+    <div class="FavNotification" data-fade="5000" style="display:none;" data-alerts="alerts">
+        <div class="d-flex justify-content-between">
+            <div class="p-text px-3 py-3">
+                <strong id="Appname">Compliance Check 1</strong>  <span id="Appdetalis">has been removed from Fav list</span>
+            </div>
+            <div>
+                <div class="d-flex px-3 py-3 FavNotificationBtn align-items-center" onclick="addfavoritesfunction();">
+                    <div><img src="../../img/icons/undo-icon.svg" alt="undo" /></div>
+                    <div class="p-text ml-2"><strong>Undo</strong></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    @*Feed back*@
+    <button class="feedbackSection" data-toggle="modal" data-target="#feedbackfromforapp">
+        <div class="d-flex align-items-center">
+            <div>
+                <img src="../../img/icons/feedback-icon.svg" alt="feedback" width="25" />
+            </div>
+            <div class="p-text ml-2">
+                Give us Feedback!
+            </div>
+        </div>
+    </button>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <script src="~/js/jquery.contextMenu.min.js"></script>
+    <script src="~/js/jquery.contextMenu.js"></script>
+    <script src="~/js/resizable.js"></script>
+
+    <script>
+        /*Sidebar menu height*/
+        function resetHeight() {
+            const sideBarMenus = document.querySelectorAll(".sidebar-menu .container-menu");
+            // reset the Sidebar menu height to that of the inner browser
+            for (var i = 0; i < sideBarMenus.length; i++) {
+                sideBarMenus[i].style.height = (window.innerHeight - 230) + "px";
+            }
+        }
+        // reset the height whenever the window's resized
+        window.addEventListener("resize", resetHeight, false);
+        // called to initially set the height.
+        resetHeight();
+
+        // Sticky navbar while page scrolls
+        $(window).scroll(function () {
+            var sticky = $('.navBarhead'),
+                scroll = $(window).scrollTop();
+
+            if (scroll >= 10) {
+                $(".mobNavLogo").addClass("active");
+                $(".navBarUserIcon").addClass("active");
+                sticky.addClass('active');
+                $(".navBarSearchBtn").removeClass("pt-4");
+            }
+            else {
+                $(".mobNavLogo").removeClass("active")
+                $(".navBarUserIcon").removeClass("active");
+                sticky.removeClass('active');
+                $(".navBarSearchBtn").addClass("pt-4");
+            }
+        });
+    </script>
+
+    <script>
+
+        //This script is to get all the strategies from Reports Controller and pass the type of strategy selected
+        $(document).ready(function () {
+
+            if (@ViewBag.VersionModalpop != "") {
+                var VersionModalpop = @ViewBag.VersionModalpop;
+
+                if (VersionModalpop == '1') {
+                    $('#VersionModal').modal('show');
+                }
+                else {
+                    $("#VersionModal").css('display', 'none');
+                }
+            }
+
+        });
+
+    </script>
+
+    <script>
+
+        $(".mobileNavMenuButton").click(function (e) {
+            e.stopPropagation();
+            $(".mobileNavMenuFlotingOptions").toggleClass("d-none");
+        });
+
+        $(function () {
+            $(document).on("click", function (e) {
+                if ($(e.target).is(".mobileNavMenuFlotingOptions") === false) {
+                    $(".mobileNavMenuFlotingOptions").addClass("d-none");
+                }
+            });
+        });
+
+        $("#mobHamburger").click(function () {
+            $("#sidebarbass").addClass("active");
+            $(".closeIconHamburger").addClass("active");
+        });
+        $(".closeIconHamburger").click(function () {
+            $("#sidebarbass").removeClass("active");
+            $(".closeIconHamburger").removeClass("active");
+            $("body").css("overflow-x", "auto");
+        });
+
+        $('.welcomeSlider')
+            .not(".slick-intialized")
+            .slick({
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                prevArrow: false,
+                nextArrow: false,
+                dots: true,
+                autoplay: true,
+                adaptiveHeight: true,
+                accessibility: false,
+            });
+    </script>
+
+    @RenderSection("FooterScript", required: false)
+    @RenderSection("Scripts", required: false)
+</body>
+
+</html>

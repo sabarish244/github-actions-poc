@@ -1,0 +1,27 @@
+﻿<!-- ------------------------------------------------------------------------------
+       This file is copyright Expleo 2021.
+     ------------------------------------------------------------------------------ -->
+@section NavSidebar{
+    <partial name="_Sidebar" model="@ViewBag.menuItem" />
+}
+
+@section UserOptions{
+    <partial name="_UserOptions" model="@ViewBag.ProjectCount" />
+}
+
+@*Script to hide the report menu from XDK Powerapp page*@
+@section Scripts {
+    <script type="text/javascript">
+          //===================================================
+
+        function SwitchViews(newViewId, RID, FavouriteID, PojectID) {
+            window.location = window.location.origin + "?action=" + newViewId + "&RID=" + RID + "&PjID=" + PojectID + "&FevID=" + FavouriteID + "&";
+        }
+    </script>
+}
+<div class="user-container">
+    <p class="user-tab">User Guide</p>
+    <iframe src="~/documents/User_Guide.pdf" height="760" width="1530"></iframe>
+</div>
+
+

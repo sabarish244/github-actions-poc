@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="44px" height="44px" viewBox="0 0 44 44" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49 (51002) - http://www.bohemiancoding.com/sketch -->
+    <title>Group 5</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="100%" y1="100%" x2="0%" y2="0%" id="linearGradient-1">
+            <stop stop-color="#EC4A5C" offset="0%"></stop>
+            <stop stop-color="#FF2525" offset="100%"></stop>
+        </linearGradient>
+        <polygon id="path-2" points="0 0 16.3428571 0 16.3428571 16.3428571 0 16.3428571"></polygon>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Scanned-Apps---DAST-Copy" transform="translate(-514.000000, -143.000000)">
+            <g id="Group-5" transform="translate(514.000000, 143.000000)">
+                <g id="Group-4" fill="url(#linearGradient-1)">
+                    <rect id="Rectangle-13-Copy-5" x="0" y="0" width="44" height="44" rx="13"></rect>
+                </g>
+                <g id="Page-1" transform="translate(13.828571, 13.828571)">
+                    <mask id="mask-3" fill="white">
+                        <use xlink:href="#path-2"></use>
+                    </mask>
+                    <g id="Clip-2"></g>
+                    <path d="M15.7199577,12.7217614 C16.5504903,13.5524834 16.5504903,14.8944188 15.7199577,15.7251408 C15.2940436,16.1511521 14.7403553,16.3428571 14.2079626,16.3428571 C13.6542743,16.3428571 13.1218816,16.1511521 12.6959675,15.7251408 L8.15998213,11.1881208 L3.62399676,15.7251408 C3.21937835,16.1511521 2.66568999,16.3428571 2.13329734,16.3428571 C1.57960899,16.3428571 1.04721634,16.1511521 0.621302221,15.7251408 C-0.20710074,14.8944188 -0.20710074,13.5524834 0.621302221,12.7217614 L5.15728759,8.18474142 L0.621302221,3.64772145 C-0.20710074,2.81699949 -0.20710074,1.475064 0.621302221,0.623041475 C1.45183475,-0.207680492 2.79346423,-0.207680492 3.62399676,0.623041475 L8.15998213,5.16006144 L12.6959675,0.623041475 C13.5265,-0.207680492 14.8894252,-0.207680492 15.7199577,0.623041475 C16.5504903,1.475064 16.5504903,2.81699949 15.7199577,3.64772145 L11.1839724,8.18474142 L15.7199577,12.7217614 Z" id="Fill-1" fill="#FEFEFE" mask="url(#mask-3)"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
