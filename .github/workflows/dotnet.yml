@@ -40,6 +40,6 @@ jobs:
       if: always()
       with:
         name: DotNET Tests
-        path: "**/*test-results.trx"                            
+        path: "/home/runner/work/github-actions-poc/github-actions-poc/Solution1/UnitTestProject/TestResults/test-results.trx"                            
         reporter: dotnet-trx
         fail-on-error: true
