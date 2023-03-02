@@ -28,7 +28,9 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 6.x
-
+        
+    - name: add package
+      run: dotnet add package JunitXml.TestLogger --version 3.0.114
 
     - name: Restore dependencies
       run: dotnet restore $SOLUTION
@@ -36,8 +38,7 @@ jobs:
     - name: Build
       run: dotnet build $SOLUTION --configuration $BUILD_CONFIG
       
-    - name: add package
-      run: dotnet add package JunitXml.TestLogger --version 3.0.114
+
       
     - name: Test
       run: dotnet test $SOLUTION --configuration $BUILD_CONFIG --logger:"junit;LogFilePath=dotnet-test-result.xml" || true
