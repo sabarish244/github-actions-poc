@@ -44,6 +44,5 @@ jobs:
       if: always()
       with:
         name: DotNET Tests
-        path: "**/dotnet-test-result.xml"                            
-        reporter: jest-junit
+        path: "**/dotnet-test-result.xml"      
         fail-on-error: true
