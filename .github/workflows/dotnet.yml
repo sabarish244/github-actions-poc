@@ -1,12 +1,12 @@
-name: CI
+name: dotnet-xml
 
 on:
   push:
     branches:
-    - xunit-dotnet
+    - dotnet-xml
   pull_request:
     branches:
-    - xunit-dotnet
+    - dotnet-xml
     
 jobs:
   build_and_test:
@@ -36,14 +36,17 @@ jobs:
     - name: Build
       run: dotnet build $SOLUTION --configuration $BUILD_CONFIG
       
+    - name: add package
+      run: dotnet add package JunitXml.TestLogger --version 3.0.114
+      
     - name: Test
-      run: dotnet test $SOLUTION --configuration $BUILD_CONFIG --logger "trx;LogFileName=test-results.trx" || true
+      run: dotnet test $SOLUTION --configuration $BUILD_CONFIG --logger:"junit;LogFilePath=dotnet-test-result.xml" || true
       
     - name: Test Report
       uses: dorny/test-reporter@v1
       if: always()
       with:
         name: DotNET Tests
-        path: "/home/runner/work/github-actions-poc/github-actions-poc/Solution1/UnitTestProject/TestResults/test-results.trx"                            
-        reporter: dotnet-trx
+        path: "**/dotnet-test-result.xml"                            
+        reporter: jest-junit
         fail-on-error: true
