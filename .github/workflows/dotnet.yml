@@ -48,6 +48,13 @@ jobs:
         path: "**/dotnet-test-result.xml"                        
         reporter: java-junit    
         fail-on-error: false
+    - name: Publish Specflow Test Logs
+      if: success() || failure()
+      uses: actions/upload-artifact@v2
+      with:
+        name: test-results
+        path: |
+          **/dotnet-test-result.xml
     - name: Get Xray Cloud API token
       id: xray-token
       shell: bash
