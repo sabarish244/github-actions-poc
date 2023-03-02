@@ -1,13 +1,13 @@
-name: build
-
+name: healthcheck
 on:
   push:
-    branches: [ "healtcheck-selenium" ]
+    branches:
+      - healthcheck-selenium
   pull_request:
-    branches: [ "healtcheck-selenium" ]
-
+    types: [opened, synchronize, reopened]
 jobs:
   build:
+    name: Build and analyze
     runs-on: self-hosted
     steps:
     - uses: actions/checkout@v3
