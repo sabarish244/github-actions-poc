@@ -62,5 +62,5 @@ jobs:
         echo ::set-output name=XRAY_TOKEN::$(curl -k -H "Content-Type: application/json" -X POST --data "{ \"client_id\": \"$CLIENT_ID\",\"client_secret\": \"$CLIENT_SECRET\" }" https://xray.cloud.xpand-it.com/api/v1/authenticate| tr -d '"')
     - name: Submit results to Xray
       shell: bash
-      run: 'curl -k -H "Content-Type: application/json" -X POST -H "Authorization: Bearer ${{ steps.xray-token.outputs.XRAY_TOKEN }}" --data "**/dotnet-test-result.xml" "https://xray.cloud.xpand-it.com/api/v1/import/execution/junit/multipart"'
+      run: 'curl -k -H "Content-Type: multipart/form-data" -X POST -F results=**/dotnet-test-result.xml -H  "Authorization: Bearer ${{ steps.xray-token.outputs.XRAY_TOKEN }}" https://xray.cloud.xpand-it.com/api/v1/import/execution/junit/multipart'
       
