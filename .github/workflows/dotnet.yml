@@ -44,5 +44,6 @@ jobs:
       if: always()
       with:
         name: DotNET Tests
-        path: "**/dotnet-test-result.xml"      
+        path: "**/dotnet-test-result.xml"                        
+        reporter: java-junit    
         fail-on-error: true
