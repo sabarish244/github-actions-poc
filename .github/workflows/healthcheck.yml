@@ -11,4 +11,22 @@ jobs:
     runs-on: self-hosted
     steps:
     - uses: actions/checkout@v3
-    - name: Setup .NET
+    - name: Setup Python
+      uses: actions/setup-python@v4.5.0
+      with:
+       # Version range or exact version of Python or PyPy to use, using SemVer's version range syntax. Reads from .python-version if unset.
+       python-version: 3.10.x
+    - name: Perform a Pester test from the Tests.ps1 file
+      shell: pwsh
+      run: |
+          chromedriver -v
+          cd
+          pip list
+          python -m robot --pythonpath . -x outputxunit.xml .
+    - name: Publish Test Results
+      uses: EnricoMi/publish-unit-test-result-action/composite@v2
+      if: always()
+      with:
+       files: |
+        **/outputxunit.xml
+
