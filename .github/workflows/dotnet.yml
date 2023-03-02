@@ -29,16 +29,12 @@ jobs:
       with:
         dotnet-version: 6.x
         
-    - name: add package
-      run: dotnet add package JunitXml.TestLogger --version 3.0.114
 
     - name: Restore dependencies
       run: dotnet restore $SOLUTION
 
     - name: Build
       run: dotnet build $SOLUTION --configuration $BUILD_CONFIG
-      
-
       
     - name: Test
       run: dotnet test $SOLUTION --configuration $BUILD_CONFIG --logger:"junit;LogFilePath=dotnet-test-result.xml" || true
