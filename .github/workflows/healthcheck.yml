@@ -16,7 +16,7 @@ jobs:
       with:
        # Version range or exact version of Python or PyPy to use, using SemVer's version range syntax. Reads from .python-version if unset.
        python-version: 3.10.x
-    - name: Perform a Pester test from the Tests.ps1 file
+    - name: Perform a test execution
       shell: pwsh
       run: |
           chromedriver -v
